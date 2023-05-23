@@ -1,0 +1,15 @@
+E:\C_Sharp\Chat\Client\bin\Debug\net7.0-windows\Client.exe
+E:\C_Sharp\Chat\Client\bin\Debug\net7.0-windows\Client.deps.json
+E:\C_Sharp\Chat\Client\bin\Debug\net7.0-windows\Client.runtimeconfig.json
+E:\C_Sharp\Chat\Client\bin\Debug\net7.0-windows\Client.dll
+E:\C_Sharp\Chat\Client\bin\Debug\net7.0-windows\Client.pdb
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\Client.csproj.AssemblyReference.cache
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\Client.GeneratedMSBuildEditorConfig.editorconfig
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\Client.AssemblyInfoInputs.cache
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\Client.AssemblyInfo.cs
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\Client.csproj.CoreCompileInputs.cache
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\Client.dll
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\refint\Client.dll
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\Client.pdb
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\Client.genruntimeconfig.cache
+E:\C_Sharp\Chat\Client\obj\Debug\net7.0-windows\ref\Client.dll

@@ -1,0 +1,105 @@
+using System;
+using System.Net;
+using System.Net.Sockets;
+using System.Text;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+class Server {
+    static List<TcpClient> clientsList = new List<TcpClient>();
+
+    static void Main(string[] args) {
+        // TcpListener server = new TcpListener(IPAddress.Any, 1234);
+        // 52.26.6.206
+
+        // string hostName = Dns.GetHostName();
+        // IPHostEntry ipHostEntry = Dns.GetHostEntry(hostName);
+        // IPAddress[] ipAddressList = ipHostEntry.AddressList;
+
+        IPAddress ip = IPAddress.Parse("127.0.0.1");
+        int port = 3000;
+
+        // foreach (IPAddress ipAddress in ipAddressList)
+        // {
+        //     if (ipAddress.AddressFamily == AddressFamily.InterNetwork)
+        //     {
+                
+        System.Console.WriteLine(ip.ToString());
+        TcpListener server = new TcpListener(ip, port);
+        server.Start();
+        Console.WriteLine("Server started on " + ip.ToString() + ":" + port.ToString());
+
+        while(true) {
+            TcpClient client = server.AcceptTcpClient();
+            Console.WriteLine("Client connected...");
+
+            clientsList.Add(client);
+
+            Task.Run(() => HandleClient(client));
+        }
+        //     }
+        // }
+    }
+
+    static void HandleClient(TcpClient client) {
+        NetworkStream stream = client.GetStream();
+        byte[] buffer = new byte[256];
+        string username = "";
+
+        while (true) {
+            try 
+            {
+                int bytes = stream.Read(buffer, 0, buffer.Length);
+                string message = Encoding.UTF8.GetString(buffer, 0, bytes);
+
+                System.Console.WriteLine(message);
+
+                if (username == "") {
+                    username = message;
+                    Console.WriteLine(username + " joined the chat");
+                    BroadcastMessage("Server", username + " joined the chat", client);
+                }
+                else if(message == "exit") {
+                    Console.WriteLine(username + " left the chat");
+                    BroadcastMessage("Server", username + " left the chat", client);
+                    clientsList.Remove(client);
+                    break;
+                }
+                else {
+                    Console.WriteLine(username + ": " + message);
+                    BroadcastMessage(username, message, client);
+                }
+            }
+            catch 
+            {
+                break;
+            }
+            Thread.Sleep(100);
+        }
+    }
+
+    static void BroadcastMessage(string username, string message, TcpClient excludeClient) {
+        foreach (TcpClient client in clientsList) {
+            try 
+            {
+                // System.Console.WriteLine(client.ToString());
+                if (client != excludeClient) {
+                    NetworkStream stream = client.GetStream();
+                    byte[] buffer = Encoding.UTF8.GetBytes(username + ": " + message);
+                    stream.Write(buffer, 0, buffer.Length);
+                }
+                else 
+                {
+                    NetworkStream stream = client.GetStream();
+                    byte[] buffer = Encoding.UTF8.GetBytes(message);
+                    stream.Write(buffer, 0, buffer.Length);
+                }
+            }
+            catch
+            {
+                // clientsList.Remove(client);
+                System.Console.WriteLine("User Error");
+            }
+        }
+    }
+}
